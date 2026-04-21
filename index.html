@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="zh-TW" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>戀財娛樂館 - Scatter n Gold</title>
+    <title>戀財娛樂館 - Scatter n Gold Proposal</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600;700;900&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -16,12 +16,11 @@
                         serif: ['Noto Serif TC', 'serif'],
                     },
                     colors: {
-                        /* 嚴格執行 60/30/10 色彩比例配置 */
-                        mainBg: '#09151A',      /* 極深的背景 */
-                        contentBg: '#0D2129',   /* 內容容器 */
-                        nileTeal: '#1F4F5F',    /* 30% 尼羅河藍綠 */
-                        pharaohGold: '#D4AF37', /* 60% 法老金 */
-                        rubyCrimson: '#C21E56', /* 10% 紅寶石緋紅 */
+                        mainBg: '#09151A',
+                        contentBg: '#0D2129',
+                        nileTeal: '#1F4F5F',
+                        pharaohGold: '#D4AF37',
+                        rubyCrimson: '#C21E56',
                         textGray: '#A7BFC7'
                     }
                 }
@@ -32,29 +31,101 @@
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
         .hover-scale { transition: transform 0.3s ease; }
-        .hover-scale:hover { transform: scale(1.03); }
+        .hover-scale:hover { transform: scale(1.02); }
         
-        /* 金屬漸層文字效果，呼應 Logo 質感 */
+        .logo-enhanced {
+            filter: drop-shadow(0 10px 15px rgba(0,0,0,0.6));
+            transition: all 0.5s ease;
+        }
+        
+        .nav-indicator {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
         .text-gold-gradient {
-            background: linear-gradient(to right, #D4AF37, #FFF2CD, #D4AF37);
+            background: linear-gradient(to bottom, #D4AF37, #FFF2CD, #D4AF37);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
-        
-        /* 紅寶石發光效果 */
-        .ruby-glow {
-            box-shadow: 0 0 15px rgba(194, 30, 86, 0.4);
+
+        /* 滾動登場動畫 */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 1s ease-out, transform 1s ease-out;
+            will-change: opacity, transform;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Hero 佈局核心：使用比例高度與直角邊框 */
+        .hero-layout-wrap {
+            position: relative;
+            min-height: 35vw; /* 高度隨寬度比例縮放，確保大氣感不因縮放消失 */
+            max-height: 600px;
+            overflow: hidden; 
+            background: linear-gradient(135deg, #1F4F5F 0%, #0D2129 100%);
+            border-radius: 0; 
+            display: flex;
+            align-items: center;
+        }
+
+        /* 右側繞流控制區 */
+        .hero-logo-float-area {
+            position: absolute;
+            right: 0;
+            top: 0;
+            width: 40%; 
+            height: 100%;
+            z-index: 20;
+            /* 讓文字順著眼睛邊緣繞行 */
+            shape-outside: circle(40% at 100% 50%);
+            float: right;
+        }
+
+        /* 眼睛 Logo：使用 vw 單位達成「按比例縮放」 */
+        .hero-big-eye {
+            position: absolute;
+            /* 將牛哥設定的 750px 轉換為視窗比例 (約 52vw) */
+            width: 52vw; 
+            max-width: 800px;
+            min-width: 400px;
+            transform: rotate(-90deg); /* 保持直立朝上 */
+            /* 將位移數值比例化，確保位置永遠卡在右側邊界 */
+            right: -14vw; 
+            top: 60%;
+            transform-origin: center;
+            translate: 0 -50%;
+            filter: drop-shadow(-10px 15px 30px rgba(0,0,0,0.8));
+            pointer-events: none;
+        }
+
+        @media (max-width: 1023px) {
+            .hero-layout-wrap { min-height: 45vw; }
+            .hero-big-eye { width: 60vw; right: -15vw; }
+        }
+
+        @media (max-width: 767px) {
+            .hero-layout-wrap { min-height: 300px; display: block; }
+            .hero-logo-float-area { display: none; }
+            .hero-big-eye {
+                width: 80vw;
+                right: -20vw;
+                top: 50%;
+            }
         }
     </style>
 </head>
-<body class="bg-mainBg text-white font-sans overflow-x-hidden relative min-h-screen flex justify-center py-12 px-4 lg:py-20 lg:px-16 2xl:px-32">
+<body class="bg-mainBg text-white font-sans overflow-x-hidden relative min-h-screen flex justify-center py-6 px-4 md:py-12 lg:py-20 lg:px-16 2xl:px-32">
 
-    <!-- 背景裝飾元素 -->
+    <!-- 背景裝飾 -->
     <div class="fixed -top-16 -right-16 w-64 h-64 bg-pharaohGold rounded-full z-0 opacity-10 blur-3xl"></div>
     <div class="fixed top-[20%] -left-16 w-48 h-48 bg-rubyCrimson rounded-full z-0 opacity-20 blur-2xl"></div>
     
-    <!-- 展示文字裝飾 -->
     <div class="fixed left-8 top-12 hidden 2xl:flex flex-col items-center text-pharaohGold opacity-30 z-0">
         <span class="text-sm font-medium mb-16">03</span>
         <span class="text-sm font-medium -rotate-90 tracking-[0.3em] mt-12 whitespace-nowrap uppercase">Proposal</span>
@@ -64,179 +135,130 @@
     <div class="w-full max-w-[1250px] relative z-10">
         
         <!-- 主要內容 UI 視窗 -->
-        <div class="w-full bg-contentBg shadow-[0_40px_100px_rgba(0,0,0,0.9)] rounded-[40px] overflow-hidden border border-nileTeal relative z-10 flex flex-col">
+        <div class="w-full bg-contentBg shadow-[0_40px_100px_rgba(0,0,0,0.9)] rounded-[32px] md:rounded-[40px] border border-nileTeal relative z-10 flex flex-col overflow-hidden">
             
             <!-- Header 頂部導覽 -->
-            <header class="flex justify-between items-center px-10 py-6 border-b border-nileTeal bg-contentBg/50 backdrop-blur-sm relative z-50">
-                <div class="flex items-center cursor-pointer">
-                    <!-- 取用 images/logo_R.jpg 並調整顯示比例 -->
-                    <img src="images/logo_R.png" alt="戀財娛樂館 Logo" class="h-12 md:h-16 w-auto object-contain drop-shadow-lg">
+            <header class="flex justify-between items-center px-6 py-4 md:px-10 md:py-10 bg-transparent relative z-50">
+                <div class="flex-shrink-0">
+                    <!-- Brand.png 保持放大比例 -->
+                    <img src="https://scatterngold.vercel.app/images/Brand.png" alt="Brand Logo" class="h-16 md:h-32 w-auto object-contain logo-enhanced">
                 </div>
                 
-                <nav class="hidden md:flex gap-10 text-sm font-medium text-textGray">
-                    <a href="#" class="text-white hover:text-pharaohGold transition">Casino</a>
-                    <a href="#" class="hover:text-white transition">Promotions</a>
-                    <a href="#" class="hover:text-white transition">FAQ</a>
+                <nav class="hidden md:flex gap-6 lg:gap-14 items-center">
+                    <a href="#about" class="flex flex-col items-center group">
+                        <span class="text-sm lg:text-base font-bold text-white group-hover:text-pharaohGold transition mb-2 tracking-[0.1em] whitespace-nowrap uppercase">關於戀財</span>
+                        <div class="nav-indicator w-8 h-1.5 bg-pharaohGold rounded-full shadow-[0_0_8px_rgba(212,175,55,0.5)]"></div>
+                    </a>
+                    <a href="#vi" class="flex flex-col items-center group">
+                        <span class="text-sm lg:text-base font-medium text-textGray group-hover:text-white transition mb-2 tracking-[0.1em] whitespace-nowrap uppercase">VI識別</span>
+                        <div class="nav-indicator w-2 h-2 bg-gray-700 rounded-full group-hover:bg-gray-500"></div>
+                    </a>
+                    <a href="#space" class="flex flex-col items-center group">
+                        <span class="text-sm lg:text-base font-medium text-textGray group-hover:text-white transition mb-2 tracking-[0.1em] whitespace-nowrap uppercase">空間規劃</span>
+                        <div class="nav-indicator w-2 h-2 bg-gray-700 rounded-full group-hover:bg-gray-500"></div>
+                    </a>
+                    <a href="#future" class="flex flex-col items-center group">
+                        <span class="text-sm lg:text-base font-medium text-textGray group-hover:text-white transition mb-2 tracking-[0.1em] whitespace-nowrap uppercase">未來發展</span>
+                        <div class="nav-indicator w-2 h-2 bg-gray-700 rounded-full group-hover:bg-gray-500"></div>
+                    </a>
                 </nav>
 
-                <button class="bg-rubyCrimson hover:bg-[#A01846] text-white text-sm font-semibold py-2.5 px-8 rounded-full ruby-glow transition border border-rubyCrimson/20 uppercase tracking-wider">
-                    Log in
-                </button>
+                <div class="md:hidden text-pharaohGold text-2xl"><i class="fa-solid fa-bars"></i></div>
+                <div class="hidden lg:block w-10"></div>
             </header>
 
-            <!-- Hero 橫幅廣告區 -->
-            <section class="px-10 py-8 relative">
-                <div class="bg-nileTeal rounded-3xl p-10 flex items-center justify-between relative overflow-hidden border border-pharaohGold/10">
-                    <div class="z-10 max-w-md">
-                        <h1 class="text-4xl font-bold mb-4 text-pharaohGold font-serif italic">Cashback</h1>
-                        <p class="text-textGray text-sm mb-8 leading-relaxed">You receive as a gift 30% of the amount on the first deposit.</p>
-                        <button class="bg-pharaohGold hover:bg-[#B8962F] text-mainBg text-sm font-bold py-3 px-8 rounded-full shadow-lg transition flex items-center gap-2 uppercase">
-                            Get bonus now <i class="fa-solid fa-arrow-right text-xs"></i>
-                        </button>
+            <!-- Hero Section: 響應式比例、直角佈局 -->
+            <section class="p-0 relative">
+                <div class="hero-layout-wrap border border-pharaohGold/10">
+                    
+                    <!-- 右側繞流區塊 (Logo 在此) -->
+                    <div class="hero-logo-float-area">
+                        <img src="https://scatterngold.vercel.app/images/logo.png" alt="Scarab Ornament" class="hero-big-eye">
                     </div>
                     
-                    <div class="absolute right-10 -bottom-10 h-[120%] w-[400px] z-10 flex justify-end items-end pointer-events-none">
-                         <!-- 角色佔位圖 -->
-                         <img src="https://images.unsplash.com/photo-1605646197116-20dbb88e1a17?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Hero Character" class="h-full object-contain mix-blend-lighten opacity-80 rounded-2xl filter sepia-[.3] hue-rotate-[190deg]">
-                    </div>
-                    
-                    <div class="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-2">
-                        <div class="w-6 h-1.5 bg-pharaohGold rounded-full"></div>
-                        <div class="w-1.5 h-1.5 bg-gray-700 rounded-full"></div>
-                        <div class="w-1.5 h-1.5 bg-gray-700 rounded-full"></div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- 分類導覽與 Jackpot -->
-            <section class="px-10 py-4 flex flex-wrap justify-between items-center gap-6">
-                <div class="flex gap-4 overflow-x-auto no-scrollbar w-full lg:w-auto">
-                    <button class="flex flex-col items-center justify-center min-w-[90px] h-[90px] bg-nileTeal hover:bg-[#255e70] rounded-2xl text-textGray hover:text-pharaohGold transition border border-white/5">
-                        <i class="fa-solid fa-layer-group text-xl mb-2"></i>
-                        <span class="text-[10px] uppercase tracking-tighter">All Games</span>
-                    </button>
-                    <button class="flex flex-col items-center justify-center min-w-[90px] h-[90px] bg-pharaohGold rounded-2xl text-mainBg shadow-lg transition transform scale-105">
-                        <i class="fa-solid fa-slot-machine text-xl mb-2"></i>
-                        <span class="text-[10px] font-bold uppercase tracking-tighter">Slots</span>
-                    </button>
-                    <!-- 其他按鈕略... -->
-                    <button class="flex flex-col items-center justify-center min-w-[90px] h-[90px] bg-nileTeal hover:bg-[#255e70] rounded-2xl text-textGray hover:text-pharaohGold transition border border-white/5">
-                        <i class="fa-solid fa-cards text-xl mb-2"></i>
-                        <span class="text-[10px] uppercase tracking-tighter">Cards</span>
-                    </button>
-                    <button class="flex flex-col items-center justify-center min-w-[90px] h-[90px] bg-nileTeal hover:bg-[#255e70] rounded-2xl text-textGray hover:text-pharaohGold transition border border-white/5">
-                        <i class="fa-solid fa-headset text-xl mb-2"></i>
-                        <span class="text-[10px] uppercase tracking-tighter">Live Casino</span>
-                    </button>
-                </div>
-
-                <div class="bg-nileTeal/50 rounded-2xl px-6 py-4 flex items-center justify-between border border-pharaohGold/20 w-full lg:w-64">
-                    <div>
-                        <div class="text-[10px] text-pharaohGold/60 uppercase mb-1 font-bold">Casino Jackpot</div>
-                        <div class="text-2xl font-bold tracking-wider text-pharaohGold">$ 678 432</div>
-                    </div>
-                    <i class="fa-solid fa-gift text-rubyCrimson text-2xl opacity-80"></i>
-                </div>
-            </section>
-
-            <!-- 四大主題區塊 -->
-            <section class="px-10 py-10 relative z-20">
-                <div class="flex items-center gap-3 mb-8">
-                    <div class="w-1 h-6 bg-pharaohGold rounded-full"></div>
-                    <h2 class="text-2xl font-bold text-white font-serif tracking-widest uppercase">Proposal Core</h2>
-                </div>
-
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 relative z-10">
-                    <!-- 1. 關於這家店 -->
-                    <div id="about" class="bg-nileTeal rounded-3xl overflow-hidden relative cursor-pointer hover-scale group border border-pharaohGold/10 hover:border-pharaohGold/40 transition duration-500 h-72 flex shadow-xl">
-                        <div class="w-1/2 p-10 flex flex-col justify-center z-10 bg-gradient-to-r from-nileTeal via-nileTeal to-transparent">
-                            <i class="fa-solid fa-eye text-pharaohGold text-2xl mb-4"></i>
-                            <h3 class="text-2xl font-bold text-white mb-3 font-serif">關於這家店</h3>
-                            <p class="text-sm text-textGray leading-relaxed">品牌核心理念、目標客群定位與市場價值主張。</p>
+                    <!-- 左側文字內容區 (精緻比例) -->
+                    <div class="z-10 p-10 md:p-14 lg:p-20 reveal active relative">
+                        <div class="flex items-center gap-3 mb-6">
+                            <span class="w-10 h-[1px] bg-pharaohGold"></span>
+                            <span class="text-pharaohGold text-[10px] md:text-xs tracking-[0.4em] uppercase font-bold text-nowrap">Exclusive Proposal</span>
                         </div>
-                        <div class="w-1/2 absolute right-0 top-0 bottom-0 overflow-hidden">
-                            <img src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=600&q=80" class="w-full h-full object-cover opacity-40 group-hover:opacity-80 group-hover:scale-110 transition duration-700" alt="About">
+                        
+                        <h1 class="text-4xl md:text-5xl lg:text-6xl font-black mb-8 leading-[0.9] font-serif text-white uppercase italic tracking-tighter">
+                            SCATTER ALL<br>
+                            <span class="text-gold-gradient">THE TIME</span>
+                        </h1>
+                        
+                        <div class="mb-10 space-y-6">
+                            <h2 class="text-pharaohGold text-xl md:text-2xl font-bold tracking-[0.3em] leading-tight">
+                                戀財有道、開眼最好
+                            </h2>
+                            <p class="text-textGray text-sm md:text-base leading-relaxed max-w-lg font-medium opacity-80">
+                                古埃及文明神祕美學與當代奢華娛樂<br class="hidden md:block">完美融合的遊藝殿堂。
+                            </p>
                         </div>
-                    </div>
 
-                    <!-- 2. VI 規劃 -->
-                    <div id="vi" class="bg-nileTeal rounded-3xl overflow-hidden relative cursor-pointer hover-scale group border border-pharaohGold/10 hover:border-pharaohGold/40 transition duration-500 h-72 flex shadow-xl">
-                        <div class="w-1/2 p-10 flex flex-col justify-center z-10 bg-gradient-to-r from-nileTeal via-nileTeal to-transparent">
-                            <i class="fa-solid fa-gem text-pharaohGold text-2xl mb-4"></i>
-                            <h3 class="text-2xl font-bold text-white mb-3 font-serif">VI 規劃</h3>
-                            <p class="text-sm text-textGray leading-relaxed">60%法老金、30%尼羅河藍、10%紅寶石緋紅的視覺系統。</p>
-                        </div>
-                        <div class="w-1/2 absolute right-0 top-0 bottom-0 overflow-hidden">
-                            <img src="https://images.unsplash.com/photo-1626080308337-b6f729226cf3?auto=format&fit=crop&w=600&q=80" class="w-full h-full object-cover opacity-40 group-hover:opacity-80 group-hover:scale-110 transition duration-700" alt="VI">
-                        </div>
-                    </div>
-
-                    <!-- 3. 空間規劃 -->
-                    <div id="space" class="bg-nileTeal rounded-3xl overflow-hidden relative cursor-pointer hover-scale group border border-pharaohGold/10 hover:border-pharaohGold/40 transition duration-500 h-72 flex shadow-xl">
-                        <div class="w-1/2 p-10 flex flex-col justify-center z-10 bg-gradient-to-r from-nileTeal via-nileTeal to-transparent">
-                            <i class="fa-solid fa-crown text-pharaohGold text-2xl mb-4"></i>
-                            <h3 class="text-2xl font-bold text-white mb-3 font-serif">空間規劃</h3>
-                            <p class="text-sm text-textGray leading-relaxed">沉浸式的尊爵空間設計，結合尼羅河神秘感與現代奢華。</p>
-                        </div>
-                        <div class="w-1/2 absolute right-0 top-0 bottom-0 overflow-hidden">
-                            <img src="https://images.unsplash.com/photo-1540932239986-30128078f3c5?auto=format&fit=crop&w=600&q=80" class="w-full h-full object-cover opacity-40 group-hover:opacity-80 group-hover:scale-110 transition duration-700" alt="Space">
-                        </div>
-                    </div>
-
-                    <!-- 4. 未來可能性 -->
-                    <div id="future" class="bg-nileTeal rounded-3xl overflow-hidden relative cursor-pointer hover-scale group border border-pharaohGold/10 hover:border-pharaohGold/40 transition duration-500 h-72 flex shadow-xl">
-                        <div class="w-1/2 p-10 flex flex-col justify-center z-10 bg-gradient-to-r from-nileTeal via-nileTeal to-transparent">
-                            <i class="fa-solid fa-rocket text-rubyCrimson text-2xl mb-4"></i>
-                            <h3 class="text-2xl font-bold text-white mb-3 font-serif">未來可能性</h3>
-                            <p class="text-sm text-textGray leading-relaxed">品牌擴展藍圖與商業發展預測，探討後續市場潛力。</p>
-                        </div>
-                        <div class="w-1/2 absolute right-0 top-0 bottom-0 overflow-hidden">
-                            <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=600&q=80" class="w-full h-full object-cover opacity-40 group-hover:opacity-80 group-hover:scale-110 transition duration-700" alt="Future">
+                        <div class="flex">
+                            <a href="#about" class="group relative bg-pharaohGold hover:bg-[#B8962F] text-mainBg text-[10px] md:text-xs font-bold py-3.5 px-10 rounded-full shadow-[0_15px_30px_rgba(212,175,55,0.2)] transition-all hover:-translate-y-1 uppercase tracking-[0.2em] flex items-center gap-3">
+                                開始探索
+                                <i class="fa-solid fa-chevron-down text-[8px] group-hover:translate-y-1 transition-transform"></i>
+                            </a>
                         </div>
                     </div>
                 </div>
             </section>
 
-            <!-- News 新聞資訊區塊 (還原) -->
-            <section class="px-10 py-10 border-t border-nileTeal bg-black/10">
-                <h2 class="text-lg font-bold mb-6 text-pharaohGold uppercase tracking-widest">Latest News</h2>
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                    <!-- 新聞項目內容同前，已套用新配色 -->
-                    <div class="bg-nileTeal p-4 rounded-2xl border border-white/5">
-                        <div class="flex justify-between text-[10px] text-textGray mb-2"><span class="text-rubyCrimson">ARTICLE</span><span>28 Jul 2020</span></div>
-                        <h3 class="font-bold text-sm leading-snug">Is money on slots an end or a means?</h3>
+            <!-- 內容區塊維持高品質呈現 -->
+            <div class="flex flex-col gap-16 md:gap-24 py-12 md:py-20">
+                <section id="about" class="px-6 md:px-10 scroll-mt-20 reveal">
+                    <div class="flex flex-col lg:flex-row gap-12 items-center">
+                        <div class="lg:w-1/2">
+                            <div class="bg-nileTeal/30 border border-pharaohGold/10 p-2 w-12 h-12 rounded-xl flex items-center justify-center mb-6">
+                                <i class="fa-solid fa-eye text-pharaohGold text-xl"></i>
+                            </div>
+                            <h2 class="text-3xl md:text-4xl font-bold mb-6 font-serif tracking-widest text-white leading-tight uppercase text-nowrap">關於戀財<br><span class="text-pharaohGold text-base md:text-lg tracking-[0.3em] uppercase font-sans font-bold">About Scatter n Gold</span></h2>
+                            <p class="text-textGray text-sm md:text-base leading-relaxed">「戀財娛樂館」致力於打造全台最具有敘事性的娛樂空間。我們將「法老王的祕寶」作為核心主題，目標客群瞄準城市精英。</p>
+                        </div>
+                        <div class="lg:w-1/2 grid grid-cols-2 gap-4">
+                            <div class="bg-nileTeal rounded-[20px] overflow-hidden h-48 md:h-64 hover-scale border border-white/5 shadow-2xl">
+                                <img src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=400&q=80" class="w-full h-full object-cover" alt="Ambience">
+                            </div>
+                            <div class="bg-nileTeal rounded-[20px] overflow-hidden h-48 md:h-64 mt-6 md:mt-8 hover-scale border border-white/5 shadow-2xl">
+                                <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=400&q=80" class="w-full h-full object-cover" alt="Service">
+                            </div>
+                        </div>
                     </div>
-                    <!-- ... 其他新聞省略 ... -->
-                </div>
-            </section>
+                </section>
+            </div>
 
-            <!-- Footer 頁尾 (還原) -->
-            <footer class="px-10 py-12 border-t border-nileTeal bg-mainBg flex flex-col md:flex-row justify-between items-start gap-10">
-                <div class="max-w-sm">
+            <footer class="px-6 py-10 md:px-10 border-t border-nileTeal bg-mainBg flex flex-col md:flex-row justify-between items-center gap-8 relative z-50">
+                <div class="flex flex-col items-center md:items-start text-center md:text-left">
                     <div class="flex items-center gap-2 mb-4">
-                        <i class="fa-solid fa-gem text-textGray"></i>
-                        <span class="text-lg font-bold text-textGray uppercase tracking-widest">TOPSLOT</span>
-                    </div>
-                    <p class="text-[10px] text-gray-500 leading-relaxed">
-                        Topslot operates under license and strictly complies with all guidelines. By using our website, you confirm that you are over 18 years old. Gambling can be addictive. Play responsibly.
-                    </p>
-                </div>
-                <div class="flex gap-16 text-xs text-textGray">
-                    <div class="flex flex-col gap-3 uppercase tracking-tighter">
-                        <a href="#" class="hover:text-pharaohGold transition">About Us</a>
-                        <a href="#" class="hover:text-pharaohGold transition">Contacts</a>
+                        <img src="https://scatterngold.vercel.app/images/Brand.png" alt="Logo" class="h-8 grayscale opacity-60">
+                        <span class="text-lg font-bold text-textGray font-serif uppercase tracking-widest ml-2">Scatter n Gold</span>
                     </div>
                 </div>
             </footer>
+        </div>
 
-        </div> <!-- 結束主要內容 -->
+        <!-- 破框裝飾牛 -->
+        <div class="absolute -right-[40px] md:-right-[80px] xl:-right-[180px] bottom-[10%] md:bottom-[12%] xl:bottom-[15%] w-[200px] md:w-[350px] xl:w-[500px] z-40 pointer-events-none hidden md:block drop-shadow-[0_30px_40px_rgba(0,0,0,1)]">
+             <img src="https://images.unsplash.com/photo-1570042225831-d98fa7577f1e?auto=format&fit=crop&w=500&q=80" alt="Bull" class="w-full filter brightness-75 contrast-125 sepia-[.2] hue-rotate-[-20deg] rounded-3xl mix-blend-lighten" style="clip-path: polygon(0 0, 100% 0, 100% 80%, 80% 100%, 0 100%);">
+        </div>
+    </div>
 
-        <!-- 原本的鬥牛 3D 角色 -->
-         <div class="absolute -right-[80px] xl:-right-[180px] bottom-[8%] xl:bottom-[12%] w-[350px] xl:w-[500px] z-30 pointer-events-none hidden lg:block drop-shadow-[0_30px_30px_rgba(0,0,0,0.9)]">
-             <img src="https://images.unsplash.com/photo-1570042225831-d98fa7577f1e?auto=format&fit=crop&w=500&q=80" alt="Bull Character" class="w-full filter brightness-75 contrast-125 sepia-[.2] hue-rotate-[-20deg] rounded-3xl mix-blend-lighten" style="clip-path: polygon(0 0, 100% 0, 100% 80%, 80% 100%, 0 100%);">
-         </div>
-
-    </div> <!-- 結束外部容器 -->
-
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const reveals = document.querySelectorAll('.reveal');
+            const revealOnScroll = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1 });
+            reveals.forEach(reveal => revealOnScroll.observe(reveal));
+        });
+    </script>
 </body>
 </html>
