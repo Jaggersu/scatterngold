@@ -15,17 +15,17 @@ const NAV_LINKS = [
 ];
 
 const GLOW_BLOBS = [
-  { top: "4%",  left: "-6%", size: "420px", opacity: 0.28, delay: "0s"   },
-  { top: "18%", left: "78%", size: "340px", opacity: 0.22, delay: "2.2s" },
-  { top: "62%", left: "-5%", size: "300px", opacity: 0.20, delay: "1.4s" },
-  { top: "80%", left: "72%", size: "380px", opacity: 0.24, delay: "3s"   },
+  { top: "5%",  left: "-10%", size: "450px", opacity: 0.35, delay: "0s"   },
+  { top: "35%", left: "85%",  size: "550px", opacity: 0.25, delay: "2s"   },
+  { top: "70%", left: "-5%",  size: "400px", opacity: 0.30, delay: "1.5s" },
+  { top: "85%", left: "75%",  size: "600px", opacity: 0.20, delay: "3s"   },
 ];
 
 const GRID_CARDS = [
-  { id: "vi-analysis",    title: "VI 解析",  desc: "標誌的每一道線條，都是對永恆財富的宣示。",   img: "/Ruby.png",     w: 130, h: 130, accent: "#C21E56" },
-  { id: "space-proposal", title: "空間提案", desc: "沉穩曜石黑交織法老金，打造王者空間。",        img: "/Wings.png",    w: 170, h: 120, accent: "#D4AF37" },
-  { id: "brand-copy",     title: "品牌文案", desc: "改寫命運的神秘旅程，重塑娛樂新標準。",        img: "/Teardrop.png", w: 110, h: 140, accent: "#C21E56" },
-  { id: "future-plan",    title: "未來計畫", desc: "重塑標準，只為滿足您對完美的苛求。",          img: "/Scarab.png",   w: 150, h: 140, accent: "#D4AF37" },
+  { id: "vi-analysis",    title: "VI 解析",  desc: "標誌的每一道線條，都是對永恆財富的宣示。",   img: "/Ruby.png" },
+  { id: "space-proposal", title: "空間提案", desc: "沉穩曜石黑交織法老金，打造王者空間。",        img: "/Wings.png" },
+  { id: "brand-copy",     title: "品牌文案", desc: "改寫命運的神秘旅程，重塑娛樂新標準。",        img: "/Teardrop.png" },
+  { id: "future-plan",    title: "未來計畫", desc: "重塑標準，只為滿足您對完美的苛求。",          img: "/Scarab.png" },
 ];
 
 export default function Home() {
@@ -50,7 +50,7 @@ export default function Home() {
     <AnimatePresence mode="wait">
       {user ? (
         /* ══════════════════════
-           登入後：Dashboard
+           登入後：TopSlot Style Dashboard
         ══════════════════════ */
         <motion.div
           key="dashboard"
@@ -58,10 +58,10 @@ export default function Home() {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.5 }}
-          className="relative min-h-screen overflow-x-hidden"
-          style={{ backgroundColor: "#141414" }}
+          className="relative min-h-screen w-full overflow-hidden flex justify-center py-0 md:py-10"
+          style={{ backgroundColor: "#141414" }} // 最底層容器 Deep Obsidian
         >
-          {/* ── 背景紅寶石光暈 ── */}
+          {/* ── 背景紅寶石破格光暈 ── */}
           {GLOW_BLOBS.map((b, i) => (
             <div
               key={i}
@@ -69,241 +69,144 @@ export default function Home() {
               style={{
                 top: b.top, left: b.left,
                 width: b.size, height: b.size,
-                background: `radial-gradient(circle, rgba(194,30,86,${b.opacity}) 0%, transparent 70%)`,
-                filter: "blur(80px)",
+                backgroundColor: "#C21E56",
+                opacity: b.opacity,
+                filter: "blur(120px)",
                 animationDelay: b.delay,
               }}
             />
           ))}
 
-          {/* ── Navbar ── */}
-          <nav
-            className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-5 md:px-12"
-            style={{
-              height: "60px",
-              backgroundColor: "rgba(20,20,20,0.88)",
-              backdropFilter: "blur(14px)",
-              borderBottom: "1px solid rgba(255,255,255,0.05)",
-            }}
-          >
-            {/* 左：品牌 */}
-            <div className="flex items-center gap-2.5 flex-shrink-0">
-              <div className="relative w-8 h-8">
-                <Image src="/logo.png" alt="戀財" fill className="object-contain" />
+          {/* ── 置中主應用容器 (The App Frame) ── */}
+          <div className="relative w-full max-w-[1280px] bg-[#1B1E26] md:rounded-[40px] shadow-[0_20px_80px_rgba(0,0,0,0.8)] border border-white/5 flex flex-col z-10 pb-24 md:pb-32">
+            
+            {/* ── Navbar ── */}
+            <nav className="w-full flex items-center justify-between px-6 md:px-12 py-6 z-50">
+              {/* 左：品牌 */}
+              <div className="flex items-center gap-3">
+                <Image src="/logo.png" alt="Logo" width={28} height={28} className="object-contain" />
+                <span className="text-white font-bold tracking-widest text-sm hidden sm:inline">戀財娛樂館</span>
               </div>
-              <span
-                className="text-sm font-bold tracking-[0.18em] font-serif hidden sm:inline"
-                style={{ color: "#D4AF37" }}
-              >
-                戀財娛樂館
-              </span>
-            </div>
 
-            {/* 中：導覽連結 */}
-            <div className="hidden md:flex items-center gap-8">
-              {NAV_LINKS.map(link => (
-                <button
-                  key={link.href}
-                  onClick={() => scrollTo(link.href)}
-                  className="text-white/60 hover:text-white text-xs tracking-[0.15em] transition-colors duration-200 bg-transparent border-0 cursor-pointer"
-                >
-                  {link.label}
-                </button>
-              ))}
-            </div>
-
-            {/* 右：登出 */}
-            <button
-              onClick={handleLogout}
-              className="px-5 py-2 rounded-full text-white text-xs font-bold tracking-[0.15em] transition-all hover:brightness-110 active:scale-95 flex-shrink-0"
-              style={{
-                backgroundColor: "#C21E56",
-                boxShadow: "0 0 18px rgba(194,30,86,0.45)",
-              }}
-            >
-              登出
-            </button>
-          </nav>
-
-          {/* ── 主內容區 ── */}
-          <main
-            className="relative z-10 max-w-[1280px] mx-auto px-5 md:px-10 flex flex-col gap-8"
-            style={{ paddingTop: "80px", paddingBottom: "80px" }}
-          >
-            {/* Hero Banner */}
-            <motion.section
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.1, duration: 0.55 }}
-              className="relative w-full rounded-2xl overflow-visible"
-              style={{
-                background: "linear-gradient(120deg, #1F4F5F 0%, #0d2030 55%, #141414 100%)",
-                border: "1px solid rgba(212,175,55,0.18)",
-                boxShadow: "0 20px 60px rgba(0,0,0,0.65)",
-                minHeight: "260px",
-              }}
-            >
-              <div className="relative flex flex-col md:flex-row items-center justify-between px-8 md:px-14 py-12 md:py-14 gap-8 overflow-visible">
-                {/* 左側文案 */}
-                <div className="flex flex-col items-start max-w-lg z-10">
-                  <p
-                    className="text-[10px] tracking-[0.45em] mb-5 font-serif uppercase"
-                    style={{ color: "rgba(212,175,55,0.55)" }}
-                  >
-                    Welcome Back
-                  </p>
-                  <h1 className="text-4xl md:text-6xl font-bold text-white font-serif leading-tight mb-2 tracking-wide">
-                    戀財娛樂館
-                  </h1>
-                  <p
-                    className="text-base md:text-lg tracking-[0.1em] mb-8 font-serif"
-                    style={{ color: "rgba(255,255,255,0.45)" }}
-                  >
-                    重塑娛樂新標竿
-                  </p>
+              {/* 中：導覽連結 */}
+              <div className="hidden md:flex items-center gap-8">
+                {NAV_LINKS.map(link => (
                   <button
-                    className="px-8 py-3.5 rounded-full text-white text-sm font-bold tracking-[0.22em] flex items-center gap-2 transition-all hover:brightness-115 hover:scale-105 active:scale-97"
-                    style={{
-                      backgroundColor: "#C21E56",
-                      boxShadow: "0 0 28px rgba(194,30,86,0.55)",
-                    }}
+                    key={link.href}
+                    onClick={() => scrollTo(link.href)}
+                    className="text-white/70 hover:text-white text-[13px] tracking-[0.1em] transition-colors duration-200 bg-transparent cursor-pointer"
                   >
-                    立即探索 <span className="text-base leading-none">→</span>
+                    {link.label}
                   </button>
-                </div>
-
-                {/* 右側 3D 破框圖 */}
-                <div className="relative flex-shrink-0 w-[220px] h-[220px] md:w-[320px] md:h-[320px]">
-                  <motion.div
-                    initial={{ opacity: 0, scale: 0.75, y: 30 }}
-                    animate={{ opacity: 1, scale: 1, y: 0 }}
-                    transition={{ delay: 0.35, type: "spring", stiffness: 55, damping: 16 }}
-                    className="absolute w-full h-full"
-                    style={{ top: "-30px", right: "-20px" }}
-                  >
-                    <Image
-                      src="/logo.png"
-                      alt="戀財娛樂館"
-                      fill
-                      className="object-contain"
-                      style={{ filter: "drop-shadow(0 30px 40px rgba(0,0,0,0.85))" }}
-                      priority
-                    />
-                  </motion.div>
-                </div>
+                ))}
               </div>
-            </motion.section>
 
-            {/* The Grid */}
-            <section
-              id="vi-analysis"
-              className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 md:auto-rows-[200px]"
-            >
+              {/* 右：登出 */}
+              <button
+                onClick={handleLogout}
+                className="px-6 py-2 rounded-full text-white text-xs font-bold tracking-wider transition-all hover:brightness-110 active:scale-95"
+                style={{ backgroundColor: "#C21E56" }}
+              >
+                登出
+              </button>
+            </nav>
+
+            {/* ── Hero Banner ── */}
+            <div className="relative mx-5 md:mx-12 mt-4 rounded-[28px] p-8 md:p-14 overflow-visible border border-[#D4AF37]/20 flex flex-col md:flex-row items-center justify-between"
+                 style={{ background: "linear-gradient(135deg, #1F4F5F 0%, #151821 100%)" }}>
+              
+              {/* 左側文案 */}
+              <div className="flex flex-col items-start max-w-md z-20">
+                <h1 className="text-4xl md:text-5xl font-bold text-white font-serif leading-tight mb-3">
+                  戀財娛樂館
+                </h1>
+                <p className="text-white/60 text-sm md:text-base leading-relaxed tracking-wider mb-8">
+                  重塑娛樂新標竿。<br />將古埃及的神聖符號化為實質的財富體驗，為您開啟一場改寫命運的旅程。
+                </p>
+                <button
+                  className="px-8 py-3.5 rounded-full text-white text-sm font-bold tracking-widest flex items-center gap-2 transition-all hover:scale-105 shadow-[0_0_20px_rgba(194,30,86,0.4)]"
+                  style={{ backgroundColor: "#C21E56" }}
+                >
+                  立即探索 <span className="text-lg leading-none">→</span>
+                </button>
+              </div>
+
+              {/* 右側 3D 破框主圖 (仿 Cashback 的雕像) */}
+              <div className="absolute right-0 md:right-[5%] -top-[10%] w-[200px] h-[200px] md:w-[350px] md:h-[350px] z-30 pointer-events-none opacity-40 md:opacity-100">
+                <Image
+                  src="/Horus.png"
+                  alt="Horus Eye"
+                  fill
+                  className="object-contain drop-shadow-[0_20px_30px_rgba(0,0,0,0.8)]"
+                  priority
+                />
+              </div>
+            </div>
+
+            {/* ── 中間狀態列 (仿 TopSlot Filter Bar) ── */}
+            <div className="mx-5 md:mx-12 my-8 p-4 md:p-5 bg-[#1A1A1A] rounded-2xl flex flex-col md:flex-row items-center justify-between border border-white/5 shadow-inner z-20">
+              <div className="flex gap-3 w-full md:w-auto overflow-x-auto pb-2 md:pb-0">
+                <button className="bg-[#C21E56] text-white px-6 py-2 rounded-xl text-xs font-bold whitespace-nowrap shadow-[0_0_15px_rgba(194,30,86,0.4)]">全部探索</button>
+                <button className="bg-white/5 text-white/60 hover:bg-white/10 hover:text-white px-6 py-2 rounded-xl text-xs whitespace-nowrap transition-all">熱門精選</button>
+                <button className="bg-white/5 text-white/60 hover:bg-white/10 hover:text-white px-6 py-2 rounded-xl text-xs whitespace-nowrap transition-all">最新發布</button>
+              </div>
+              <div className="mt-4 md:mt-0 flex flex-col md:flex-row md:items-center gap-2 md:gap-4 w-full md:w-auto text-center md:text-right">
+                <span className="text-white/40 text-[10px] tracking-[0.2em] uppercase">Global Wealth</span>
+                <span className="text-[#D4AF37] text-xl md:text-2xl font-bold font-mono tracking-wider">$ 999,999,999</span>
+              </div>
+            </div>
+
+            {/* ── The Grid 網格 ── */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 px-5 md:px-12 relative z-20">
               {GRID_CARDS.map((card, i) => (
                 <motion.div
                   key={card.id}
                   id={card.id}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: "-30px" }}
-                  transition={{ delay: i * 0.08, duration: 0.4 }}
-                  className="group relative rounded-2xl p-5 flex flex-col justify-between overflow-visible cursor-pointer transition-all duration-300"
-                  style={{
-                    backgroundColor: "#1A1A1A",
-                    border: "1px solid rgba(255,255,255,0.06)",
-                    boxShadow: "0 4px 20px rgba(0,0,0,0.4)",
-                  }}
-                  whileHover={{
-                    borderColor: "rgba(212,175,55,0.4)",
-                    boxShadow: "0 0 28px rgba(212,175,55,0.1), 0 4px 20px rgba(0,0,0,0.5)",
-                    backgroundColor: "#1f1f1f",
-                  }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.1, duration: 0.4 }}
+                  className={`group relative bg-[#1A1A1A] rounded-[20px] p-5 md:p-6 border border-white/5 overflow-visible cursor-pointer transition-all duration-300 hover:border-[#D4AF37] hover:shadow-[0_0_30px_rgba(212,175,55,0.15)] flex flex-col justify-between h-[220px] md:h-[260px] ${i % 2 === 1 ? 'md:mt-8' : ''}`}
                 >
-                  {/* 文字區 */}
-                  <div className="relative z-10">
-                    <h3 className="text-white font-bold text-base md:text-lg font-serif tracking-[0.1em] mb-1.5">
-                      {card.title}
-                    </h3>
-                    <div
-                      className="w-7 h-0.5 rounded-full mb-3"
-                      style={{ backgroundColor: card.accent }}
-                    />
-                    <p className="text-white/40 text-[11px] md:text-xs leading-relaxed tracking-wide">
-                      {card.desc}
-                    </p>
+                  <div className="relative z-20">
+                    <h3 className="text-white font-bold text-lg font-serif tracking-wider mb-2">{card.title}</h3>
+                    <p className="text-white/40 text-[11px] leading-relaxed tracking-wide">{card.desc}</p>
                   </div>
-
-                  {/* 破框圖示 */}
-                  <div
-                    className="absolute pointer-events-none z-20"
-                    style={{ bottom: "-14px", right: "-8px" }}
-                  >
-                    <Image
-                      src={card.img}
-                      alt={card.title}
-                      width={card.w}
-                      height={card.h}
-                      className="object-contain opacity-75 group-hover:opacity-100 group-hover:scale-110 transition-all duration-500"
-                      style={{ filter: "drop-shadow(0 10px 18px rgba(0,0,0,0.9))" }}
-                    />
+                  
+                  {/* 3D 破框小圖 */}
+                  <div className="absolute right-[-10px] bottom-[-10px] w-[120px] h-[120px] z-10 pointer-events-none group-hover:scale-110 transition-transform duration-500">
+                    <Image src={card.img} alt={card.title} fill className="object-contain drop-shadow-[0_10px_20px_rgba(0,0,0,0.8)] opacity-80 group-hover:opacity-100" />
                   </div>
-
-                  {/* Read More */}
-                  <span
-                    className="relative z-10 mt-auto text-[10px] tracking-[0.2em] uppercase font-bold transition-colors duration-300 group-hover:text-[#C21E56]"
-                    style={{ color: "rgba(255,255,255,0.2)" }}
-                  >
-                    Explore →
-                  </span>
                 </motion.div>
               ))}
-            </section>
+            </div>
 
-            {/* 底部品牌規格列 */}
-            <motion.footer
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              viewport={{ once: true }}
-              className="flex flex-wrap items-center justify-between gap-6 pt-8"
-              style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }}
-            >
-              <div className="flex items-center gap-2.5">
-                <div className="relative w-6 h-6 opacity-35">
-                  <Image src="/logo.png" alt="戀財" fill className="object-contain" />
-                </div>
-                <span
-                  className="text-[10px] tracking-[0.3em] font-serif"
-                  style={{ color: "rgba(255,255,255,0.28)" }}
-                >
-                  戀財娛樂館 · SCATTER WEALTH
-                </span>
+            {/* ── 底部供應商/規格列 ── */}
+            <div className="px-5 md:px-12 mt-16 md:mt-24 pt-8 border-t border-white/5 flex flex-wrap items-center justify-center md:justify-start gap-8 z-20 relative">
+              <span className="text-white/30 text-[10px] tracking-[0.2em] w-full md:w-auto text-center">PROVIDERS / SPECS</span>
+              <div className="flex gap-6 items-center flex-wrap justify-center opacity-50 grayscale hover:grayscale-0 hover:opacity-100 transition-all duration-500">
+                <span className="text-white text-sm font-serif font-bold tracking-widest">SCATTERNGOLD</span>
+                <span className="text-white text-sm font-serif font-bold tracking-widest text-[#D4AF37]">PHARAOH</span>
+                <span className="text-white text-sm font-serif font-bold tracking-widest text-[#C21E56]">RUBY</span>
+                <span className="text-white text-sm font-serif font-bold tracking-widest text-[#1F4F5F]">NILE</span>
               </div>
-              <div className="flex gap-5 items-center">
-                {[
-                  { name: "Pharaoh Gold",  hex: "#D4AF37" },
-                  { name: "Ruby Crimson",  hex: "#C21E56" },
-                  { name: "Deep Obsidian", hex: "#2a2a2a" },
-                ].map(c => (
-                  <div key={c.hex} className="flex items-center gap-2">
-                    <div
-                      className="w-3 h-3 rounded-full"
-                      style={{ backgroundColor: c.hex, boxShadow: `0 0 6px ${c.hex}80` }}
-                    />
-                    <span
-                      className="hidden md:inline text-[9px] tracking-widest font-mono"
-                      style={{ color: "rgba(255,255,255,0.28)" }}
-                    >
-                      {c.hex}
-                    </span>
-                  </div>
-                ))}
-              </div>
-            </motion.footer>
-          </main>
+            </div>
+
+            {/* ── 右下角巨型破格元素 (仿 TopSlot 的大紅牛) ── */}
+            <div className="absolute -right-[10%] md:-right-[15%] -bottom-[2%] md:-bottom-[5%] w-[300px] h-[300px] md:w-[650px] md:h-[650px] z-50 pointer-events-none">
+              <Image 
+                src="/Scarab.png" 
+                alt="Scarab Breakout" 
+                fill 
+                className="object-contain drop-shadow-[0_40px_50px_rgba(0,0,0,0.9)]" 
+                priority
+              />
+            </div>
+          </div>
         </motion.div>
       ) : (
         /* ══════════════════════
-           未登入：置中 Logo + LoginForm（保持不變）
+           未登入：置中 Logo + LoginForm（完全不動）
         ══════════════════════ */
         <motion.div
           key="guest"
