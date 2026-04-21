@@ -2,11 +2,9 @@
 
 @theme {
   /* ── 品牌色彩 ── */
-  --color-pharaoh-gold:   #D4AF37;
-  --color-nile-teal:      #1F4F5F;
-  --color-ruby-crimson:   #C21E56;
-  --color-deep-obsidian:  #141414;
-  --color-aged-parchment: #F5F1E1;
+  --color-gold:     #D4AF37;
+  --color-crimson:  #C21E56;
+  --color-obsidian: #141414;
 
   /* ── 字體 ── */
   --font-heading: var(--font-playfair, Georgia, "Times New Roman", serif);
