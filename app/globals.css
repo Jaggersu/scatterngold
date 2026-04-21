@@ -1,26 +1,83 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+  /* ── 品牌色彩 ── */
+  --color-pharaoh-gold:   #D4AF37;
+  --color-nile-teal:      #1F4F5F;
+  --color-ruby-crimson:   #C21E56;
+  --color-deep-obsidian:  #141414;
+  --color-aged-parchment: #F5F1E1;
+
+  /* ── 字體 ── */
+  --font-heading: var(--font-playfair, Georgia, "Times New Roman", serif);
+  --font-body:    var(--font-inter, system-ui, -apple-system, sans-serif);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-body);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+}
+
+@keyframes metallicFlow {
+  0%, 100% { background-position: 0% 50%; }
+  50%       { background-position: 100% 50%; }
+}
+
+@keyframes shimmer {
+  0%   { background-position: -200% center; }
+  100% { background-position:  200% center; }
+}
+
+@keyframes float-dot {
+  0%, 100% { transform: translateY(0) scale(1); opacity: 0.15; }
+  50% { transform: translateY(-20px) scale(1.2); opacity: 0.35; }
+}
+
+.bg-dot {
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(212,175,55,0.8) 0%, rgba(212,175,55,0) 70%);
+  filter: blur(12px);
+  pointer-events: none;
+  z-index: 0;
+  animation: float-dot 6s ease-in-out infinite;
+}
+
+.shimmer-text {
+  background: linear-gradient(
+    90deg,
+    #8C6A00 0%,
+    #D4AF37 28%,
+    #FFE87C 50%,
+    #D4AF37 72%,
+    #8C6A00 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shimmer 5s linear infinite;
+}
+
+.metallic-fluid {
+  background: linear-gradient(
+    135deg,
+    transparent 0%,
+    rgba(212,175,55,0.03) 18%,
+    rgba(31,79,95,0.05)  40%,
+    rgba(212,175,55,0.03) 62%,
+    rgba(194,30,86,0.02) 82%,
+    transparent 100%
+  );
+  background-size: 400% 400%;
+  animation: metallicFlow 18s ease infinite;
 }
