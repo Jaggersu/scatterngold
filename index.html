@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TOPSLOT Casino</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Poppins', 'sans-serif'],
+                    },
+                    colors: {
+                        mainBg: '#151723',
+                        contentBg: '#1C1F30',
+                        cardBg: '#24283D',
+                        brandRed: '#F93946',
+                        textGray: '#8E94B3'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* 隱藏卷軸但保持可滾動 */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        
+        /* 懸浮放大效果 */
+        .hover-scale {
+            transition: transform 0.3s ease;
+        }
+        .hover-scale:hover {
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body class="bg-mainBg text-white font-sans overflow-x-hidden relative min-h-screen flex justify-center py-12 px-4 lg:py-20 lg:px-16 2xl:px-32">
+
+    <!-- Dribbble 提案展示風格的背景元素 (實心紅圈) -->
+    <div class="fixed -top-16 -right-16 w-64 h-64 bg-brandRed rounded-full z-0"></div>
+    <div class="fixed top-[20%] -left-16 w-48 h-48 bg-brandRed rounded-full z-0"></div>
+    <div class="fixed bottom-32 -left-8 w-24 h-24 bg-brandRed rounded-full z-0"></div>
+    <div class="fixed bottom-[5%] -right-10 w-40 h-40 bg-brandRed rounded-full z-0"></div>
+    <div class="fixed top-[30%] right-[10%] w-6 h-6 bg-brandRed rounded-full z-0 opacity-80"></div>
+    
+    <!-- 展示文字 (只在大螢幕顯示) -->
+    <div class="fixed left-8 top-12 hidden 2xl:flex flex-col items-center text-textGray z-0">
+        <span class="text-sm font-medium mb-16">03</span>
+        <span class="text-sm font-medium -rotate-90 tracking-[0.3em] mt-12 whitespace-nowrap">Desktop</span>
+    </div>
+    <div class="fixed left-32 top-12 hidden 2xl:block text-white font-bold tracking-wide z-0">
+        Main page
+    </div>
+
+    <!-- 整個網站的外部容器 (確保四周有留白，並讓鬥牛可以超出視窗邊界) -->
+    <div class="w-full max-w-[1250px] relative z-10">
+        
+        <!-- 主要內容 UI 視窗 (加上較深的陰影與邊框突顯浮動層次感) -->
+        <div class="w-full bg-contentBg shadow-[0_40px_100px_rgba(0,0,0,0.8)] rounded-[40px] overflow-hidden border border-gray-700/50 relative z-10 flex flex-col">
+            
+            <!-- Header 頂部導航 -->
+            <header class="flex justify-between items-center px-10 py-6 border-b border-gray-800 relative z-20">
+                <div class="flex items-center gap-2 cursor-pointer">
+                    <i class="fa-solid fa-gem text-white text-2xl"></i>
+                    <span class="text-xl font-bold tracking-wider">TOPSLOT</span>
+                </div>
+                
+                <nav class="hidden md:flex gap-10 text-sm font-medium text-textGray">
+                    <a href="#" class="text-white hover:text-brandRed transition">Casino</a>
+                    <a href="#" class="hover:text-white transition">Promotions</a>
+                    <a href="#" class="hover:text-white transition">FAQ</a>
+                </nav>
+
+                <button class="bg-brandRed hover:bg-red-600 text-white text-sm font-semibold py-2 px-8 rounded-full shadow-[0_0_15px_rgba(249,57,70,0.4)] transition">
+                    Log in
+                </button>
+            </header>
+
+            <!-- Hero 橫幅廣告區 -->
+            <section class="px-10 py-8 relative">
+                <div class="bg-cardBg rounded-3xl p-10 flex items-center justify-between relative overflow-hidden">
+                    <div class="z-10 max-w-md">
+                        <h1 class="text-4xl font-bold mb-4">Cashback</h1>
+                        <p class="text-textGray text-sm mb-8 leading-relaxed">You receive as a gift 30% of the amount on the first deposit.</p>
+                        <button class="bg-brandRed hover:bg-red-600 text-white text-sm font-semibold py-3 px-8 rounded-full shadow-[0_0_15px_rgba(249,57,70,0.4)] transition flex items-center gap-2">
+                            Get bonus now <i class="fa-solid fa-arrow-right text-xs"></i>
+                        </button>
+                    </div>
+                    
+                    <!-- 模擬 3D 探險家角色 (使用佔位圖) -->
+                    <div class="absolute right-10 -bottom-10 h-[120%] w-[400px] z-10 flex justify-end items-end">
+                         <img src="https://images.unsplash.com/photo-1605646197116-20dbb88e1a17?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Hero Character" class="h-full object-contain mix-blend-lighten opacity-80 rounded-2xl filter sepia-[.3] hue-rotate-[190deg]">
+                    </div>
+                    
+                    <!-- 輪播點 -->
+                    <div class="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-2">
+                        <div class="w-6 h-1.5 bg-brandRed rounded-full"></div>
+                        <div class="w-1.5 h-1.5 bg-gray-600 rounded-full"></div>
+                        <div class="w-1.5 h-1.5 bg-gray-600 rounded-full"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 遊戲分類導航 & Jackpot -->
+            <section class="px-10 py-4 flex flex-wrap justify-between items-center gap-6">
+                <div class="flex gap-4 overflow-x-auto no-scrollbar w-full lg:w-auto">
+                    <button class="flex flex-col items-center justify-center min-w-[90px] h-[90px] bg-cardBg hover:bg-gray-700 rounded-2xl text-textGray hover:text-white transition">
+                        <i class="fa-solid fa-layer-group text-xl mb-2"></i>
+                        <span class="text-xs">All Games</span>
+                    </button>
+                    <button class="flex flex-col items-center justify-center min-w-[90px] h-[90px] bg-brandRed rounded-2xl text-white shadow-[0_0_20px_rgba(249,57,70,0.3)] transition">
+                        <i class="fa-solid fa-slot-machine text-xl mb-2"></i>
+                        <span class="text-xs font-semibold">Slots</span>
+                    </button>
+                    <button class="flex flex-col items-center justify-center min-w-[90px] h-[90px] bg-cardBg hover:bg-gray-700 rounded-2xl text-textGray hover:text-white transition">
+                        <i class="fa-solid fa-cards text-xl mb-2"></i>
+                        <span class="text-xs">Cards</span>
+                    </button>
+                    <button class="flex flex-col items-center justify-center min-w-[90px] h-[90px] bg-cardBg hover:bg-gray-700 rounded-2xl text-textGray hover:text-white transition">
+                        <i class="fa-solid fa-headset text-xl mb-2"></i>
+                        <span class="text-xs">Live Casino</span>
+                    </button>
+                    <button class="flex flex-col items-center justify-center min-w-[90px] h-[90px] bg-cardBg hover:bg-gray-700 rounded-2xl text-textGray hover:text-white transition">
+                        <i class="fa-solid fa-circle-notch text-xl mb-2"></i>
+                        <span class="text-xs">Roulette</span>
+                    </button>
+                    <button class="flex flex-col items-center justify-center min-w-[90px] h-[90px] bg-cardBg hover:bg-gray-700 rounded-2xl text-textGray hover:text-white transition">
+                        <i class="fa-solid fa-futbol text-xl mb-2"></i>
+                        <span class="text-xs">Sport</span>
+                    </button>
+                </div>
+
+                <!-- Jackpot 區塊 -->
+                <div class="bg-cardBg rounded-2xl px-6 py-4 flex items-center justify-between border border-gray-700 w-full lg:w-64">
+                    <div>
+                        <div class="text-[10px] text-textGray uppercase mb-1">Casino Jackpot</div>
+                        <div class="text-2xl font-bold tracking-wider">$ 678 432</div>
+                    </div>
+                    <i class="fa-solid fa-gift text-brandRed text-2xl opacity-80"></i>
+                </div>
+            </section>
+
+            <!-- 遊戲列表區 -->
+            <section class="px-10 py-6 relative">
+                <!-- 過濾器與搜尋 -->
+                <div class="flex justify-between items-center mb-6 relative z-20">
+                    <div class="flex gap-4">
+                        <button class="bg-brandRed text-white text-xs px-4 py-1.5 rounded-full">All</button>
+                        <button class="text-textGray hover:text-white text-xs px-2 py-1.5 transition">Popular</button>
+                        <button class="text-textGray hover:text-white text-xs px-2 py-1.5 transition">New</button>
+                    </div>
+                    <div class="relative">
+                        <input type="text" placeholder="Search Game" class="bg-cardBg border border-gray-700 text-sm rounded-full pl-4 pr-10 py-2 focus:outline-none focus:border-gray-500 w-48 transition">
+                        <i class="fa-solid fa-search absolute right-4 top-1/2 -translate-y-1/2 text-textGray text-sm"></i>
+                    </div>
+                </div>
+
+                <!-- 遊戲網格 -->
+                <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4 relative z-10">
+                    <!-- 第一排 -->
+                    <div class="aspect-square rounded-2xl overflow-hidden relative cursor-pointer hover-scale group">
+                        <img src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80" class="w-full h-full object-cover" alt="Game 1">
+                    </div>
+                    <div class="aspect-square rounded-2xl overflow-hidden relative cursor-pointer hover-scale group">
+                        <img src="https://images.unsplash.com/photo-1600844781466-9ab5053e1a0d?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80" class="w-full h-full object-cover" alt="Game 2">
+                    </div>
+                    <div class="aspect-square rounded-2xl overflow-hidden relative cursor-pointer hover-scale group">
+                        <img src="https://images.unsplash.com/photo-1614294149010-950b698f72c0?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80" class="w-full h-full object-cover" alt="Game 3">
+                    </div>
+                    <div class="aspect-square rounded-2xl overflow-hidden relative cursor-pointer hover-scale group">
+                        <img src="https://images.unsplash.com/photo-1555597673-b21d5c935865?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80" class="w-full h-full object-cover" alt="Game 4">
+                    </div>
+                    <div class="aspect-square rounded-2xl overflow-hidden relative cursor-pointer hover-scale group">
+                        <img src="https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80" class="w-full h-full object-cover" alt="Game 5">
+                    </div>
+
+                    <!-- 第二排 -->
+                    <div class="col-span-2 row-span-2 rounded-2xl overflow-hidden relative cursor-pointer hover-scale">
+                        <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" class="w-full h-full object-cover" alt="EggOMatic">
+                        <div class="absolute bottom-4 left-4 text-3xl font-black text-yellow-400 drop-shadow-lg">EGG<span class="text-white">OMATIC</span></div>
+                    </div>
+                    <div class="aspect-square rounded-2xl overflow-hidden relative cursor-pointer hover-scale">
+                        <img src="https://images.unsplash.com/photo-1565084888279-aca607ecce0c?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80" class="w-full h-full object-cover" alt="Game">
+                    </div>
+                    <div class="aspect-square rounded-2xl overflow-hidden relative cursor-pointer hover-scale">
+                        <img src="https://images.unsplash.com/photo-1584727638096-042c45049ebe?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80" class="w-full h-full object-cover" alt="Game">
+                    </div>
+                    <div class="aspect-square rounded-2xl overflow-hidden relative cursor-pointer hover-scale">
+                        <img src="https://images.unsplash.com/photo-1533422902779-babd49ef5fb1?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80" class="w-full h-full object-cover" alt="Game">
+                    </div>
+
+                    <!-- 第三排 -->
+                     <div class="aspect-square rounded-2xl overflow-hidden relative cursor-pointer hover-scale">
+                        <div class="absolute top-2 left-2 bg-teal-400 text-xs font-bold px-2 py-0.5 rounded text-black z-10">NEW</div>
+                        <img src="https://images.unsplash.com/photo-1511512578047-dfb367046420?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80" class="w-full h-full object-cover" alt="Game">
+                    </div>
+                    <div class="aspect-square rounded-2xl overflow-hidden relative cursor-pointer hover-scale">
+                        <img src="https://images.unsplash.com/photo-1607604276583-eef5d076aa5f?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80" class="w-full h-full object-cover" alt="Game">
+                    </div>
+                    <div class="aspect-square rounded-2xl overflow-hidden relative cursor-pointer hover-scale">
+                        <img src="https://images.unsplash.com/photo-1515238152791-8226bf1a6bc4?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80" class="w-full h-full object-cover" alt="Game">
+                    </div>
+
+                    <!-- 第四排 -->
+                    <div class="aspect-square rounded-2xl overflow-hidden relative cursor-pointer hover-scale">
+                        <img src="https://images.unsplash.com/photo-1552820728-8b83bb6b773f?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80" class="w-full h-full object-cover" alt="Game">
+                    </div>
+                    <div class="aspect-square rounded-2xl overflow-hidden relative cursor-pointer hover-scale">
+                        <div class="absolute top-2 left-2 bg-teal-400 text-xs font-bold px-2 py-0.5 rounded text-black z-10">NEW</div>
+                        <img src="https://images.unsplash.com/photo-1596484552834-6a58f850e0a1?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80" class="w-full h-full object-cover" alt="Game">
+                    </div>
+                     <div class="aspect-square rounded-2xl overflow-hidden relative cursor-pointer hover-scale">
+                        <img src="https://images.unsplash.com/photo-1571181685453-4cea0ce12384?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80" class="w-full h-full object-cover" alt="Game">
+                    </div>
+                    <div class="col-span-2 rounded-2xl overflow-hidden relative cursor-pointer hover-scale bg-[#3d0f28] flex items-center justify-center p-4">
+                        <div class="flex-1">
+                            <img src="https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80" class="h-24 w-24 rounded-full object-cover border-4 border-brandRed" alt="Dog">
+                        </div>
+                        <div class="flex-1 text-right pr-4">
+                             <div class="text-3xl font-bold text-yellow-400 leading-tight">Super<br>Dogs</div>
+                             <div class="text-[10px] tracking-widest text-white mt-2">THE SLOT GAME</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Show More Button -->
+                <div class="text-center mt-8 relative z-20">
+                    <button class="bg-cardBg hover:bg-gray-700 text-textGray hover:text-white text-xs px-6 py-2 rounded-full transition">Show More</button>
+                </div>
+            </section>
+
+            <!-- News 新聞資訊區塊 -->
+            <section class="px-10 py-10 border-t border-gray-800">
+                <h2 class="text-lg font-bold mb-6">News</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                    
+                    <!-- 新聞大卡片 (人物) -->
+                    <div class="bg-cardBg rounded-2xl overflow-hidden row-span-2 group cursor-pointer">
+                        <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Stephen Hendry" class="w-full h-48 object-cover group-hover:scale-105 transition duration-500">
+                        <div class="p-5">
+                            <div class="flex justify-between text-[10px] text-textGray mb-2">
+                                <span>FACES</span>
+                                <span>1 Aug 2020</span>
+                            </div>
+                            <h3 class="font-bold text-sm leading-snug mb-3">Stephen Hendry names three players to watch out for in the new season</h3>
+                            <p class="text-[11px] text-textGray line-clamp-3">Technical metrics such as RTP, reel placement and number of lines are the key factors that foreign users pay attention to.</p>
+                        </div>
+                    </div>
+
+                    <!-- 小新聞卡片 1 -->
+                    <div class="bg-cardBg p-4 rounded-2xl cursor-pointer hover:bg-gray-700 transition">
+                        <div class="flex justify-between text-[10px] text-textGray mb-2"><span>ARTICLE</span><span>28 Jul 2020</span></div>
+                        <h3 class="font-bold text-sm leading-snug">Is money on slots an end or a means?</h3>
+                    </div>
+
+                    <!-- 小新聞卡片 2 -->
+                    <div class="bg-cardBg p-4 rounded-2xl cursor-pointer hover:bg-gray-700 transition">
+                        <div class="flex justify-between text-[10px] text-textGray mb-2"><span>NEWS</span><span>26 Jul 2020</span></div>
+                        <h3 class="font-bold text-sm leading-snug">New slots: has developers' approach changed?</h3>
+                    </div>
+                    
+                    <!-- 圖片新聞卡片 1 -->
+                    <div class="bg-cardBg rounded-2xl overflow-hidden cursor-pointer group row-span-2">
+                        <img src="https://images.unsplash.com/photo-1623934335443-4dc975b94f1c?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80" class="w-full h-32 object-cover group-hover:scale-105 transition" alt="News Image">
+                         <div class="p-4">
+                            <div class="flex justify-between text-[10px] text-textGray mb-2"><span>ARTICLE</span><span>20 Jul 2020</span></div>
+                            <h3 class="font-bold text-sm leading-snug">Slots in the style of China and the Wild West</h3>
+                        </div>
+                    </div>
+
+                    <!-- 橫向圖片新聞卡片 (佔兩欄) -->
+                    <div class="col-span-1 md:col-span-2 bg-cardBg rounded-2xl overflow-hidden flex flex-col md:flex-row cursor-pointer group">
+                        <div class="md:w-1/2 h-32 md:h-auto overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Tech" class="w-full h-full object-cover group-hover:scale-105 transition">
+                        </div>
+                        <div class="p-4 md:w-1/2 flex flex-col justify-center">
+                            <div class="flex justify-between text-[10px] text-textGray mb-2"><span>ARTICLE</span><span>17 Jul 2020</span></div>
+                            <h3 class="font-bold text-sm leading-snug mb-2">Top slot by technical characteristics</h3>
+                            <p class="text-[10px] text-textGray line-clamp-2">Technical metrics such as RTP, reel placement and number of lines are the key factors.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="text-center mt-6">
+                    <button class="text-textGray hover:text-white text-xs px-6 py-2 transition flex items-center justify-center gap-2 mx-auto">All News <i class="fa-solid fa-arrow-right text-[10px]"></i></button>
+                </div>
+            </section>
+
+            <!-- Providers 供應商 Logo 牆 -->
+            <section class="px-10 py-8 border-t border-gray-800">
+                <h2 class="text-sm text-textGray mb-4">Providers</h2>
+                <div class="flex flex-wrap items-center gap-x-8 gap-y-6 opacity-60">
+                    <!-- 使用文字模擬 Logo，真實環境應替換為圖片 SVG -->
+                    <div class="font-bold text-xl tracking-tighter">NETENT</div>
+                    <div class="font-semibold italic text-green-400"><i class="fa-solid fa-m"></i> Microgaming</div>
+                    <div class="font-bold text-sm">PLAY'N GO <i class="fa-solid fa-caret-right text-brandRed"></i></div>
+                    <div class="font-bold text-blue-400 text-sm">Playtech</div>
+                    <div class="font-bold text-red-500 leading-tight text-xs">BOOMING<br>GAMES</div>
+                    <div class="font-black text-yellow-500 text-sm">NOLIMIT<span class="text-white text-[10px] block">CITY</span></div>
+                    <div class="font-bold text-green-500 text-sm"><i class="fa-solid fa-cube"></i> booongo</div>
+                    <div class="font-bold text-blue-300 text-sm"><i class="fa-solid fa-circle text-[8px]"></i> blueprint</div>
+                    <div class="font-bold text-red-600 text-sm italic">RED TIGER</div>
+                </div>
+            </section>
+
+            <!-- Footer 頁尾 -->
+            <footer class="px-10 py-10 border-t border-gray-800 bg-[#181B2A] flex flex-col md:flex-row justify-between items-start gap-10">
+                <div class="max-w-sm">
+                    <div class="flex items-center gap-2 mb-4">
+                        <i class="fa-solid fa-gem text-textGray"></i>
+                        <span class="text-lg font-bold text-textGray">TOPSLOT</span>
+                    </div>
+                    <p class="text-[10px] text-gray-500 leading-relaxed mb-6">
+                        Topslot operates under license and strictly complies with all guidelines. By using our website, you confirm that you are over 18 years old. Gambling can be addictive. Play responsibly.
+                    </p>
+                    <div class="flex items-center gap-4 text-gray-500 text-2xl">
+                        <i class="fa-brands fa-cc-mastercard"></i>
+                        <i class="fa-brands fa-cc-visa"></i>
+                        <i class="fa-brands fa-bitcoin"></i>
+                        <i class="fa-brands fa-cc-paypal"></i>
+                    </div>
+                </div>
+
+                <div class="flex gap-16 text-xs text-textGray">
+                    <div class="flex flex-col gap-3">
+                        <a href="#" class="hover:text-white transition">Promotions & Bonuses</a>
+                        <a href="#" class="hover:text-white transition">FAQ</a>
+                        <a href="#" class="hover:text-white transition">About Us</a>
+                        <a href="#" class="hover:text-white transition">Contacts</a>
+                    </div>
+                    
+                    <div class="flex flex-col gap-4">
+                         <button class="bg-cardBg hover:bg-gray-700 text-white px-4 py-2 rounded-full flex items-center gap-2 transition">
+                            <i class="fa-regular fa-paper-plane text-brandRed"></i> Support chat
+                        </button>
+                        <div class="flex gap-4 text-lg justify-end">
+                            <a href="#" class="hover:text-white transition"><i class="fa-brands fa-vk"></i></a>
+                            <a href="#" class="hover:text-white transition"><i class="fa-brands fa-twitter"></i></a>
+                            <a href="#" class="hover:text-white transition"><i class="fa-brands fa-facebook-f"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+
+        </div> <!-- 結束主要內容 UI 視窗 -->
+
+        <!-- 模擬右下角的鬥牛 3D 角色 (移到 UI 視窗外層，完美呈現「破框」立體感) -->
+         <div class="absolute -right-[80px] xl:-right-[180px] bottom-[8%] xl:bottom-[12%] w-[350px] xl:w-[500px] z-30 pointer-events-none hidden lg:block drop-shadow-[0_30px_30px_rgba(0,0,0,0.9)]">
+             <img src="https://images.unsplash.com/photo-1570042225831-d98fa7577f1e?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Bull Character Placeholder" class="w-full filter brightness-75 contrast-125 sepia-[.2] hue-rotate-[-20deg] rounded-3xl mix-blend-lighten" style="clip-path: polygon(0 0, 100% 0, 100% 80%, 80% 100%, 0 100%);">
+         </div>
+
+    </div> <!-- 結束外部容器 -->
+
+</body>
+</html>
