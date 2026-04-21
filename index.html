@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>戀財娛樂館 - Scatter n Gold Proposal</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <!-- 使用 6.5.1 確保最新圖標支援 -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600;700;900&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <script>
         tailwind.config = {
@@ -62,10 +63,10 @@
             transform: translateY(0);
         }
 
-        /* Hero 佈局核心：使用比例高度與直角邊框 */
+        /* Hero 佈局核心：直角邊框、按比例縮放 */
         .hero-layout-wrap {
             position: relative;
-            min-height: 35vw; /* 高度隨寬度比例縮放，確保大氣感不因縮放消失 */
+            min-height: 35vw;
             max-height: 600px;
             overflow: hidden; 
             background: linear-gradient(135deg, #1F4F5F 0%, #0D2129 100%);
@@ -74,7 +75,6 @@
             align-items: center;
         }
 
-        /* 右側繞流控制區 */
         .hero-logo-float-area {
             position: absolute;
             right: 0;
@@ -82,20 +82,17 @@
             width: 40%; 
             height: 100%;
             z-index: 20;
-            /* 讓文字順著眼睛邊緣繞行 */
             shape-outside: circle(40% at 100% 50%);
             float: right;
         }
 
-        /* 眼睛 Logo：使用 vw 單位達成「按比例縮放」 */
+        /* 眼睛 Logo：牛哥調教參數 (750px, top 60%, 縮放比例) */
         .hero-big-eye {
             position: absolute;
-            /* 將牛哥設定的 750px 轉換為視窗比例 (約 52vw) */
             width: 52vw; 
-            max-width: 800px;
+            max-width: 750px;
             min-width: 400px;
-            transform: rotate(-90deg); /* 保持直立朝上 */
-            /* 將位移數值比例化，確保位置永遠卡在右側邊界 */
+            transform: rotate(-90deg); 
             right: -14vw; 
             top: 60%;
             transform-origin: center;
@@ -112,11 +109,26 @@
         @media (max-width: 767px) {
             .hero-layout-wrap { min-height: 300px; display: block; }
             .hero-logo-float-area { display: none; }
-            .hero-big-eye {
-                width: 80vw;
-                right: -20vw;
-                top: 50%;
-            }
+            .hero-big-eye { width: 80vw; right: -20vw; top: 50%; }
+        }
+
+        /* VI 部件圖示特效 */
+        .symbol-card {
+            background: linear-gradient(145deg, rgba(31, 79, 95, 0.2), rgba(13, 33, 41, 0.4));
+            border: 1px solid rgba(31, 79, 95, 0.3);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .symbol-card:hover {
+            border-color: rgba(212, 175, 55, 0.4);
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+        }
+        .symbol-img {
+            filter: drop-shadow(0 5px 15px rgba(0,0,0,0.5));
+            transition: transform 0.6s ease;
+        }
+        .symbol-card:hover .symbol-img {
+            transform: scale(1.1) rotate(5deg);
         }
     </style>
 </head>
@@ -140,7 +152,6 @@
             <!-- Header 頂部導覽 -->
             <header class="flex justify-between items-center px-6 py-4 md:px-10 md:py-10 bg-transparent relative z-50">
                 <div class="flex-shrink-0">
-                    <!-- Brand.png 保持放大比例 -->
                     <img src="https://scatterngold.vercel.app/images/Brand.png" alt="Brand Logo" class="h-16 md:h-32 w-auto object-contain logo-enhanced">
                 </div>
                 
@@ -167,27 +178,21 @@
                 <div class="hidden lg:block w-10"></div>
             </header>
 
-            <!-- Hero Section: 響應式比例、直角佈局 -->
+            <!-- Hero Section -->
             <section class="p-0 relative">
                 <div class="hero-layout-wrap border border-pharaohGold/10">
-                    
-                    <!-- 右側繞流區塊 (Logo 在此) -->
                     <div class="hero-logo-float-area">
-                        <img src="https://scatterngold.vercel.app/images/logo.png" alt="Scarab Ornament" class="hero-big-eye">
+                        <img src="https://scatterngold.vercel.app/images/logo.png" alt="Emblem" class="hero-big-eye">
                     </div>
-                    
-                    <!-- 左側文字內容區 (精緻比例) -->
                     <div class="z-10 p-10 md:p-14 lg:p-20 reveal active relative">
                         <div class="flex items-center gap-3 mb-6">
                             <span class="w-10 h-[1px] bg-pharaohGold"></span>
                             <span class="text-pharaohGold text-[10px] md:text-xs tracking-[0.4em] uppercase font-bold text-nowrap">Exclusive Proposal</span>
                         </div>
-                        
                         <h1 class="text-4xl md:text-5xl lg:text-6xl font-black mb-8 leading-[0.9] font-serif text-white uppercase italic tracking-tighter">
                             SCATTER ALL<br>
                             <span class="text-gold-gradient">THE TIME</span>
                         </h1>
-                        
                         <div class="mb-10 space-y-6">
                             <h2 class="text-pharaohGold text-xl md:text-2xl font-bold tracking-[0.3em] leading-tight">
                                 戀財有道、開眼最好
@@ -196,7 +201,6 @@
                                 古埃及文明神祕美學與當代奢華娛樂<br class="hidden md:block">完美融合的遊藝殿堂。
                             </p>
                         </div>
-
                         <div class="flex">
                             <a href="#about" class="group relative bg-pharaohGold hover:bg-[#B8962F] text-mainBg text-[10px] md:text-xs font-bold py-3.5 px-10 rounded-full shadow-[0_15px_30px_rgba(212,175,55,0.2)] transition-all hover:-translate-y-1 uppercase tracking-[0.2em] flex items-center gap-3">
                                 開始探索
@@ -207,42 +211,150 @@
                 </div>
             </section>
 
-            <!-- 內容區塊維持高品質呈現 -->
-            <div class="flex flex-col gap-16 md:gap-24 py-12 md:py-20">
-                <section id="about" class="px-6 md:px-10 scroll-mt-20 reveal">
-                    <div class="flex flex-col lg:flex-row gap-12 items-center">
-                        <div class="lg:w-1/2">
-                            <div class="bg-nileTeal/30 border border-pharaohGold/10 p-2 w-12 h-12 rounded-xl flex items-center justify-center mb-6">
-                                <i class="fa-solid fa-eye text-pharaohGold text-xl"></i>
-                            </div>
-                            <h2 class="text-3xl md:text-4xl font-bold mb-6 font-serif tracking-widest text-white leading-tight uppercase text-nowrap">關於戀財<br><span class="text-pharaohGold text-base md:text-lg tracking-[0.3em] uppercase font-sans font-bold">About Scatter n Gold</span></h2>
-                            <p class="text-textGray text-sm md:text-base leading-relaxed">「戀財娛樂館」致力於打造全台最具有敘事性的娛樂空間。我們將「法老王的祕寶」作為核心主題，目標客群瞄準城市精英。</p>
+            <!-- 主內容區 -->
+            <div class="flex flex-col py-16 md:py-24 px-8 md:px-16 lg:px-24">
+                
+                <!-- 關於戀財 -->
+                <section id="about" class="scroll-mt-20 reveal mb-32">
+                    <div class="max-w-4xl mb-20">
+                        <div class="flex items-center gap-3 mb-6">
+                            <i class="fa-solid fa-quote-left text-pharaohGold text-3xl opacity-50"></i>
+                            <h2 class="text-2xl md:text-4xl font-black font-serif text-white tracking-widest leading-tight">
+                                一個讓快樂共鳴的純粹空間。
+                            </h2>
                         </div>
-                        <div class="lg:w-1/2 grid grid-cols-2 gap-4">
-                            <div class="bg-nileTeal rounded-[20px] overflow-hidden h-48 md:h-64 hover-scale border border-white/5 shadow-2xl">
-                                <img src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=400&q=80" class="w-full h-full object-cover" alt="Ambience">
+                        <div class="space-y-6 text-textGray text-base md:text-lg leading-relaxed font-medium">
+                            <p>戀財娛樂館的設立初衷很簡單：我們想為喜愛線上娛樂城遊戲的玩家，提供一個比家裡更舒服、比手機更精彩的專屬空間。與其一個人對著螢幕消磨時間，不如來到這裡，享受大家聚在一起、共享中獎喜悅的熱鬧氛圍。</p>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+                        <div class="group">
+                            <div class="w-14 h-14 bg-nileTeal/30 rounded-2xl flex items-center justify-center mb-6 border border-pharaohGold/20 group-hover:bg-pharaohGold/10 transition-all duration-500 shadow-lg">
+                                <i class="fa-solid fa-users-rays text-pharaohGold text-2xl"></i>
                             </div>
-                            <div class="bg-nileTeal rounded-[20px] overflow-hidden h-48 md:h-64 mt-6 md:mt-8 hover-scale border border-white/5 shadow-2xl">
-                                <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=400&q=80" class="w-full h-full object-cover" alt="Service">
+                            <h3 class="text-xl font-bold text-white mb-4 tracking-wider">自在的社交場域</h3>
+                            <p class="text-sm text-textGray leading-relaxed opacity-80">讓喜歡遊戲的人能聚在一起，在勝負與中獎的時刻有人分享、有人共鳴，讓娛樂回歸集體快樂。</p>
+                        </div>
+                        <div class="group">
+                            <div class="w-14 h-14 bg-nileTeal/30 rounded-2xl flex items-center justify-center mb-6 border border-pharaohGold/20 group-hover:bg-pharaohGold/10 transition-all duration-500 shadow-lg">
+                                <i class="fa-solid fa-couch text-pharaohGold text-2xl"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-white mb-4 tracking-wider">極致舒適的遊玩環境</h3>
+                            <p class="text-sm text-textGray leading-relaxed opacity-80">專注於打造能讓人長時間放鬆的環境，搭配完整流程服務，您只需專注在遊戲樂趣中。</p>
+                        </div>
+                        <div class="group">
+                            <div class="w-14 h-14 bg-nileTeal/30 rounded-2xl flex items-center justify-center mb-6 border border-pharaohGold/20 group-hover:bg-pharaohGold/10 transition-all duration-500 shadow-lg">
+                                <i class="fa-solid fa-leaf text-pharaohGold text-2xl"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-white mb-4 tracking-wider">純粹的休閒體驗</h3>
+                            <p class="text-sm text-textGray leading-relaxed opacity-80">遊戲不僅是遊戲，而是一種壓力的釋放，找回最單純的快樂。</p>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- VI 識別系統：移除淚滴，強化平衡 -->
+                <section id="vi" class="scroll-mt-20 reveal mb-32">
+                    <div class="text-center mb-16">
+                        <span class="text-pharaohGold text-xs tracking-[0.5em] uppercase font-bold mb-4 block">Visual Identity System</span>
+                        <h2 class="text-3xl md:text-5xl font-black font-serif text-white tracking-widest">視覺識別規範</h2>
+                        <div class="w-24 h-1 bg-pharaohGold mx-auto mt-6"></div>
+                    </div>
+
+                    <!-- 符號解構說明 (移除淚滴部件) -->
+                    <div class="mb-24">
+                        <h3 class="text-pharaohGold text-lg font-bold tracking-widest mb-10 flex items-center gap-3">
+                            <span class="w-8 h-px bg-pharaohGold"></span> 品牌圖騰解構
+                        </h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                            <!-- 寶石 -->
+                            <div class="symbol-card p-10 rounded-[32px] flex flex-col items-center text-center">
+                                <div class="w-32 h-32 mb-8 flex items-center justify-center">
+                                    <img src="https://scatterngold.vercel.app/images/Ruby.png" alt="Ruby Gem" class="symbol-img max-w-full max-h-full object-contain">
+                                </div>
+                                <h4 class="text-rubyCrimson font-black text-xl mb-4 tracking-widest uppercase italic">Ruby Gem</h4>
+                                <p class="text-sm md:text-base text-textGray leading-relaxed font-medium">頂部的緋紅能量寶石。象徵尊貴、權力核心以及娛樂館無上的凝聚力與熱情。它是所有能量的起點。</p>
+                            </div>
+                            <!-- 眼睛 -->
+                            <div class="symbol-card p-10 rounded-[32px] flex flex-col items-center text-center">
+                                <div class="w-32 h-32 mb-8 flex items-center justify-center">
+                                    <img src="https://scatterngold.vercel.app/images/Horus.png" alt="Horus Eye" class="symbol-img max-w-full max-h-full object-contain">
+                                </div>
+                                <h4 class="text-pharaohGold font-black text-xl mb-4 tracking-widest uppercase italic">Horus Eye</h4>
+                                <p class="text-sm md:text-base text-textGray leading-relaxed font-medium">鑲嵌於聖甲蟲主體內的全知之眼。象徵洞察先機的眼光、幸運、智慧以及提供給 VIP 客戶的全方位守護。</p>
+                            </div>
+                            <!-- 主體 -->
+                            <div class="symbol-card p-10 rounded-[32px] flex flex-col items-center text-center bg-[#0D2A33] border-pharaohGold/20">
+                                <div class="w-32 h-32 mb-8 flex items-center justify-center">
+                                    <img src="https://scatterngold.vercel.app/images/Scarab.png" alt="Scarab Body" class="symbol-img max-w-full max-h-full object-contain">
+                                </div>
+                                <h4 class="text-white font-black text-xl mb-4 tracking-widest uppercase italic">Scarab Body</h4>
+                                <p class="text-sm md:text-base text-textGray leading-relaxed font-medium">品牌靈魂的載體。代表重生與創造，連接著智慧與權威，象徵穩固的組織架構與財富循環。</p>
+                            </div>
+                            <!-- 翅膀 -->
+                            <div class="symbol-card p-10 rounded-[32px] flex flex-col items-center text-center">
+                                <div class="w-32 h-32 mb-8 flex items-center justify-center">
+                                    <img src="https://scatterngold.vercel.app/images/Wings.png" alt="Scarab Wings" class="symbol-img max-w-full max-h-full object-contain">
+                                </div>
+                                <h4 class="text-pharaohGold font-black text-xl mb-4 tracking-widest uppercase italic">Scarab Wings</h4>
+                                <p class="text-sm md:text-base text-textGray leading-relaxed font-medium">聖甲蟲羽翼象徵法老金羽翼。具備細膩金屬拉絲質感，象徵權威的展開、庇佑以及品牌的穩固基石。</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 色彩與字體規範 -->
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-16">
+                        <div class="space-y-10">
+                            <h3 class="text-pharaohGold text-sm font-bold tracking-[0.3em] uppercase mb-6 flex items-center gap-3">
+                                <span class="w-6 h-px bg-pharaohGold"></span> Color Palette
+                            </h3>
+                            <div class="grid grid-cols-3 gap-4">
+                                <div class="group">
+                                    <div class="h-20 bg-pharaohGold rounded-2xl mb-3 shadow-lg transition-transform group-hover:scale-105"></div>
+                                    <div class="text-[9px] text-pharaohGold font-bold tracking-widest uppercase">Pharaoh Gold</div>
+                                    <div class="text-[10px] text-textGray font-mono">#D4AF37</div>
+                                </div>
+                                <div class="group">
+                                    <div class="h-20 bg-nileTeal rounded-2xl mb-3 shadow-lg border border-white/5 transition-transform group-hover:scale-105"></div>
+                                    <div class="text-[9px] text-textGray font-bold tracking-widest uppercase">Nile Teal</div>
+                                    <div class="text-[10px] text-textGray font-mono">#1F4F5F</div>
+                                </div>
+                                <div class="group">
+                                    <div class="h-20 bg-rubyCrimson rounded-2xl mb-3 shadow-lg border border-white/5 transition-transform group-hover:scale-105"></div>
+                                    <div class="text-[9px] text-rubyCrimson font-bold tracking-widest uppercase">Ruby Crimson</div>
+                                    <div class="text-[10px] text-textGray font-mono">#C21E56</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="space-y-10">
+                            <h3 class="text-pharaohGold text-sm font-bold tracking-[0.3em] uppercase mb-6 flex items-center gap-3">
+                                <span class="w-6 h-px bg-pharaohGold"></span> Typography
+                            </h3>
+                            <div class="space-y-6">
+                                <div class="border-l border-pharaohGold/30 pl-4">
+                                    <div class="text-[10px] text-pharaohGold tracking-widest uppercase mb-1">Heading Font</div>
+                                    <div class="text-xl font-serif text-white tracking-widest font-bold">Noto Serif TC</div>
+                                </div>
+                                <div class="border-l border-nileTeal/30 pl-4">
+                                    <div class="text-[10px] text-textGray tracking-widest uppercase mb-1">Body Font</div>
+                                    <div class="text-xl font-sans text-white tracking-tighter font-medium">Poppins Sans</div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </section>
             </div>
 
-            <footer class="px-6 py-10 md:px-10 border-t border-nileTeal bg-mainBg flex flex-col md:flex-row justify-between items-center gap-8 relative z-50">
+            <!-- Footer -->
+            <footer class="px-8 py-12 border-t border-nileTeal bg-mainBg flex flex-col md:flex-row justify-between items-center gap-8 relative z-50">
                 <div class="flex flex-col items-center md:items-start text-center md:text-left">
-                    <div class="flex items-center gap-2 mb-4">
+                    <div class="flex items-center gap-3 mb-4">
                         <img src="https://scatterngold.vercel.app/images/Brand.png" alt="Logo" class="h-8 grayscale opacity-60">
                         <span class="text-lg font-bold text-textGray font-serif uppercase tracking-widest ml-2">Scatter n Gold</span>
                     </div>
+                    <p class="text-[10px] text-gray-600 font-bold uppercase tracking-widest">© 2026 Scatter n Gold Project • Confidential Document</p>
                 </div>
             </footer>
-        </div>
-
-        <!-- 破框裝飾牛 -->
-        <div class="absolute -right-[40px] md:-right-[80px] xl:-right-[180px] bottom-[10%] md:bottom-[12%] xl:bottom-[15%] w-[200px] md:w-[350px] xl:w-[500px] z-40 pointer-events-none hidden md:block drop-shadow-[0_30px_40px_rgba(0,0,0,1)]">
-             <img src="https://images.unsplash.com/photo-1570042225831-d98fa7577f1e?auto=format&fit=crop&w=500&q=80" alt="Bull" class="w-full filter brightness-75 contrast-125 sepia-[.2] hue-rotate-[-20deg] rounded-3xl mix-blend-lighten" style="clip-path: polygon(0 0, 100% 0, 100% 80%, 80% 100%, 0 100%);">
         </div>
     </div>
 
