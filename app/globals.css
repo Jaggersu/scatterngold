@@ -1,15 +1,5 @@
 @import "tailwindcss";
-
-@theme {
-  /* ── 品牌色彩 ── */
-  --color-gold:     #D4AF37;
-  --color-crimson:  #C21E56;
-  --color-obsidian: #141414;
-
-  /* ── 字體 ── */
-  --font-heading: var(--font-playfair, Georgia, "Times New Roman", serif);
-  --font-body:    var(--font-inter, system-ui, -apple-system, sans-serif);
-}
+@config "../tailwind.config.ts";
 
 * {
   box-sizing: border-box;
@@ -18,11 +8,13 @@
 }
 
 body {
-  font-family: var(--font-body);
+  font-family: var(--font-inter), sans-serif;
+  background-color: #141414;
+  color: #ffffff;
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-heading);
+  font-family: var(--font-playfair), serif;
 }
 
 @keyframes metallicFlow {
@@ -36,8 +28,8 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 @keyframes float-dot {
-  0%, 100% { transform: translateY(0) scale(1); opacity: 0.15; }
-  50% { transform: translateY(-20px) scale(1.2); opacity: 0.35; }
+  0%, 100% { transform: translateY(0) scale(1); opacity: 0.25; }
+  50% { transform: translateY(-20px) scale(1.05); opacity: 0.35; }
 }
 
 .bg-dot {
