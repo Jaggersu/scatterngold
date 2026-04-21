@@ -43,8 +43,8 @@ h1, h2, h3, h4, h5, h6 {
 .bg-dot {
   position: absolute;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(212,175,55,0.8) 0%, rgba(212,175,55,0) 70%);
-  filter: blur(12px);
+  background: radial-gradient(circle, rgba(194,30,86,1) 0%, rgba(194,30,86,0) 70%);
+  filter: blur(18px);
   pointer-events: none;
   z-index: 0;
   animation: float-dot 6s ease-in-out infinite;
